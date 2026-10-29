@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pendaftaran Kursus</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="container">
+        <section class="form-card">
+            <p class="eyebrow">PENDAFTARAN ONLINE</p>
+            <h1>Form Pendaftaran Kursus</h1>
+            <p class="intro">Isi data berikut dengan benar untuk mendaftar.</p>
+
+            <!-- Method POST dipakai karena data pendaftaran tidak boleh tampil di URL.
+                 Ganti action dengan endpoint backend saat integrasi. -->
+            <form id="formPendaftaran" action="#" method="post">
+
+                <!-- Input 1: text -->
+                <div class="form-group">
+                    <label for="nama">Nama lengkap</label>
+                    <input type="text" id="nama" name="nama"
+                        placeholder="Masukkan nama lengkap" required>
+                </div>
+
+                <!-- Input 2: email -->
+                <div class="form-group">
+                    <label for="email">Alamat email</label>
+                    <input type="email" id="email" name="email"
+                        placeholder="nama@email.com" required>
+                </div>
+
+                <!-- Input 3: password -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password"
+                        placeholder="Minimal 8 karakter" minlength="8" required>
+                </div>
+
+                <!-- Input 4: number -->
+                <div class="form-group">
+                    <label for="nilai">Nilai / skor</label>
+                    <input type="number" id="nilai" name="nilai"
+                        placeholder="Masukkan nilai (0–100)"
+                        min="0" max="100" step="0.01" required>
+                </div>
+
+                <!-- Input 5: date -->
+                <div class="form-group">
+                    <label for="tanggalLahir">Tanggal lahir</label>
+                    <input type="date" id="tanggalLahir"
+                        name="tanggal_lahir" required>
+                </div>
+
+                <!-- Tiga jenis button: submit, reset, button -->
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary">
+                        Daftar Sekarang
+                    </button>
+                    <button type="reset" class="btn btn-secondary">
+                        Reset Form
+                    </button>
+                    <button type="button" class="btn btn-outline" id="btnInfo">
+                        Lihat Info
+                    </button>
+                </div>
+
+                <p id="pesan" class="message" role="status"
+                    aria-live="polite"></p>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        const form = document.getElementById("formPendaftaran");
+        const pesan = document.getElementById("pesan");
+
+        // Submit: cek validasi dulu, tampilkan pesan jika semua field valid
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            if (form.checkValidity()) {
+                pesan.textContent = "Form valid!";
+                pesan.className = "message success";
+            } else {
+                form.reportValidity();
+            }
+        });
+
+        // Reset: hapus pesan yang tampil
+        form.addEventListener("reset", function () {
+            pesan.textContent = "";
+            pesan.className = "message";
+        });
+
+        // Button biasa: tidak mengirim form, hanya menampilkan informasi
+        document.getElementById("btnInfo").addEventListener("click", function () {
+            pesan.textContent =
+                "Pastikan nama, email, password, nilai, dan tanggal lahir sudah diisi.";
+            pesan.className = "message info";
+        });
+    </script>
+</body>
+</html>
